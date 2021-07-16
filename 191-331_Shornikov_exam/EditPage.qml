@@ -18,7 +18,7 @@ Page {
         valueRole: "color"
         width: 150
         height: 45
-        currentIndex: 0
+        Component.onCompleted: currentIndex = redactedNote > -1 ? indexOfValue(notesList.get(redactedNote).color) > -1 ? indexOfValue(notesList.get(redactedNote).color) : 0 : 0
         model: ListModel {
             id: cbItems
             ListElement { text: "Не выбрано"; color: "#c0f2ed" }
@@ -38,7 +38,7 @@ Page {
         anchors.topMargin: 15
         width: 175
         height: 45
-        currentIndex: 0
+        Component.onCompleted: currentIndex = redactedNote > -1 ? indexOfValue(notesList.get(redactedNote).tag) > -1 ? indexOfValue(notesList.get(redactedNote).tag) : 0 : 0
         model: ListModel {
             id: tags
             ListElement { text: "Не выбрано" }

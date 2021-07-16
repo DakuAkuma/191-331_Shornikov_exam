@@ -32,7 +32,7 @@ Page {
                     color: notesList.get(index).color
                     Label {
                         id: noteLabel
-                        text: "<font color='white'><strong>"+title+"</strong></font>"
+                        text: "<font color='"+(notesList.get(index).color !== "lightyellow" ? "white" : "black" )+"'><strong>"+title+"</strong></font>"
                         background: Rectangle {
                             color: "#2bd4c3"
                             radius: 4
@@ -54,7 +54,7 @@ Page {
                         height: 30
                         elide: Text.ElideRight
                         font.pixelSize: 12
-                        color: "white"
+                        color: notesList.get(index).color !== "lightyellow" ? "white" : "black"
                         text: note
                     }
                     Text {
@@ -62,16 +62,14 @@ Page {
                         anchors.top: noteText.bottom
                         anchors.topMargin: 25
                         anchors.bottom: parent.bottom
-                        anchors.bottomMargin: 5
-                        anchors.right: parent.right
-                        anchors.left: parent.left
-                        anchors.leftMargin: 25
+                        anchors.bottomMargin: 10
+                        horizontalAlignment: Text.AlignHCenter
                         width: parent.width
                         wrapMode: Text.WordWrap
                         height: 15
                         font.bold: true
                         font.pixelSize: 12
-                        color: "white"
+                        color: notesList.get(index).color !== "lightyellow" ? "white" : "black"
                         text: tag
                     }
                 }

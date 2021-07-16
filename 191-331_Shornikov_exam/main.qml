@@ -50,7 +50,7 @@ ApplicationWindow { // Само приложение.
         ListElement {
             title: "Заголовок 1"
             note: "Привет привет привет"
-            color: "lightblue"
+            color: "lightyellow"
             tag: "Работа"
         }
 
