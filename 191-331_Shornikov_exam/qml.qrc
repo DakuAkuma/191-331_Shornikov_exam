@@ -4,5 +4,6 @@
         <file>img/logo.png</file>
         <file>DrawerInfo.qml</file>
         <file>MainPage.qml</file>
+        <file>EditPage.qml</file>
     </qresource>
 </RCC>

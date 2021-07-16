@@ -9,6 +9,8 @@ ApplicationWindow { // Само приложение.
     visible: true
     title: qsTr("Заметки")
 
+    property int redactedNote: -1 // Редактируемая заметка. -1 для избежания кривой работы.
+
     header: ToolBar { // Заголовок для страницы "Заметок"
         contentHeight: toolButton.implicitHeight
         background: Rectangle {
@@ -27,7 +29,7 @@ ApplicationWindow { // Само приложение.
             font.pixelSize: Qt.application.font.pixelSize * 1.6
             onClicked: {
                 if (stackView.depth > 1) {
-                    stackView.pop()
+                    stackView.pop(null)
                 } else {
                     drawer.open()
                 }
@@ -41,10 +43,30 @@ ApplicationWindow { // Само приложение.
             font.pixelSize: Qt.application.font.pixelSize * 1.6
         }
     }
+    // Модель для создания, в будущем, "плитки" заметок.
+    ListModel {
+        id: notesList
+
+        ListElement {
+            title: "Заголовок 1"
+            note: "Привет привет привет"
+        }
+
+        ListElement {
+            title: "Заголовок 2"
+            note: "Привет привет привет привет привет привет"
+        }
+    }
+
     // Страница, отображающая все заметки.
     MainPage {
         id: mainPage
     }
+    // Страница для редактирования.
+    EditPage {
+        id: editPage
+    }
+
     // Боковая информационная панель
     DrawerInfo {
         id: drawer

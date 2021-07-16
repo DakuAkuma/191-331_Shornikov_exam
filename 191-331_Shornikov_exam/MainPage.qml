@@ -6,22 +6,9 @@ Page {
     id: mainPage // Страница для отображения заметок.
 
     title: "Заметки"
-    // Модель для создания, в будущем, "плитки" заметок.
-    ListModel {
-        id: notesList
 
-        ListElement {
-            title: "Заголовок 1"
-            note: "Привет привет привет"
-        }
-
-        ListElement {
-            title: "Заголовок 2"
-            note: "Привет привет привет привет привет привет"
-        }
-    }
-
-    GridView {
+    GridView { // Список для отображения заметок.
+        id: notesView
         anchors.top: parent.top
         anchors.left: parent.left
         anchors.leftMargin: 25; anchors.topMargin: 25
@@ -30,40 +17,77 @@ Page {
 
         model: notesList
 
-        cellWidth: 120; cellHeight: 120 // Ширина, высота ячейки.
+        cellWidth: 110; cellHeight: 110 // Ширина, высота ячейки.
 
         delegate: noteDelegate
         // Создаем делегат (шаблон) для нашего списка.
         Component {
             id: noteDelegate
-            Rectangle {
-                id: noteElement
+            MouseArea {
                 width: 105
                 height: 105
-                color: "#c0f2ed"
-                Label {
-                    id: noteLabel
-                    text: "<font color='white'><strong>"+title+"</strong></font>"
-                    background: Rectangle {
-                        color: "#2bd4c3"
-                        radius: 4
+                Rectangle {
+                    id: noteElement
+                    anchors.fill: parent
+                    color: "#c0f2ed"
+                    Label {
+                        id: noteLabel
+                        text: "<font color='white'><strong>"+title+"</strong></font>"
+                        background: Rectangle {
+                            color: "#2bd4c3"
+                            radius: 4
+                        }
+                        width: parent.width
+                        height: 20
+                        font.pixelSize: 14
+                        horizontalAlignment: Text.AlignHCenter
+                        elide: Text.ElideRight
                     }
-                    width: parent.width
-                    height: 20
-                    font.pixelSize: 14
-                    horizontalAlignment: Text.AlignHCenter
+                    Text {
+                        id: noteText
+                        anchors.top: noteLabel.bottom
+                        anchors.topMargin: 5
+                        anchors.left: parent.left
+                        anchors.leftMargin: 5
+                        width: parent.width
+                        wrapMode: Text.WordWrap
+                        height: 30
+                        elide: Text.ElideRight
+                        font.pixelSize: 12
+                        color: "white"
+                        text: note
+                    }
                 }
-                Text {
-                    id: noteText
-                    anchors.top: noteLabel.bottom
-                    width: parent.width
-                    height: 40
-                    wrapMode: Text.WordWrap
-                    font.pixelSize: 14
-                    color: "white"
-                    text: note
+                onClicked: {
+                    redactedNote = index
+                    stackView.push("EditPage.qml")
+                    //console.log(mouseX, mouseY, redactedNote)
                 }
             }
+        }
+    }
+
+    // Кнопка для создания заметки.
+    RoundButton {
+        Text {
+            anchors.centerIn: parent
+            text: "\uFF0B" // Символ "+"
+            font.pixelSize: 48
+        }
+        anchors.bottom: parent.bottom
+        anchors.right: parent.right
+        anchors.bottomMargin: 55; anchors.rightMargin: 35
+        width: 75; height: 75
+        // Создание новой заметки.
+        onClicked: {
+            redactedNote = -1
+            stackView.push("EditPage.qml")
+            // Было до добавления страницы редактирования.
+//            notesList.append({
+//                                 "title": "Заголовок",
+//                                 "note": "Какой-то текст..."
+//                             })
+//            console.log(notesList.get(notesList.count).note)
         }
     }
 }
