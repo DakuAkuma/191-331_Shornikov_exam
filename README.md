@@ -22,3 +22,9 @@ andrey19h4@gmail.com
 ### Сайт Московского политеха.
 
 https://mospolytech.ru/
+
+## Снимки приложения
+
+![alt text](https://github.com/DakuAkuma/191-331_Shornikov_exam/blob/master/photos/info.png "Информационная страничка-шторка")
+![alt text](https://github.com/DakuAkuma/191-331_Shornikov_exam/blob/master/photos/main.png "Главная страничка приложения")
+![alt text](https://github.com/DakuAkuma/191-331_Shornikov_exam/blob/master/photos/creation.png "Страница создания/редактирования заметки")
