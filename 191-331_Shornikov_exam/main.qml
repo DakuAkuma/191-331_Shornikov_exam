@@ -9,35 +9,51 @@ ApplicationWindow { // Само приложение.
     visible: true
     title: qsTr("Заметки")
 
-    Drawer { // Боковая информационная страничка.
-        id: drawer
-        width: 0.66 * window.width
-        height: window.height
-
-        Label { // Заголовок Drawer'a.
-            id: header_d
-            text: "Заметки"
-            font.pixelSize: Qt.application.font.pixelSize*3
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.topMargin: 15
+    header: ToolBar { // Заголовок для страницы "Заметок"
+        contentHeight: toolButton.implicitHeight
+        background: Rectangle {
+            anchors.fill: parent
+            color: "#262626"
         }
 
-        Label {
-            anchors.top: header_d.bottom
-            anchors.topMargin: 15
-            anchors.horizontalCenter: parent.horizontalCenter
-            width: parent.width
+        ToolButton {
+            id: toolButton
+            background: Rectangle {
+                anchors.fill: parent
+                color: "#262626"
+            }
 
-            Text { // Информация о приложении.
-                width: parent.width
-                id: information
-                text: "Экзаменационное задание по дисциплине \"Разработка безопасных мобильных приложений\",\nМосковский политех,\n30 июня 2021 г."
-                clip: true
-                wrapMode: Text.WordWrap
-                font.pixelSize: Qt.application.font.pixelSize*1.33
-                horizontalAlignment: Text.AlignHCenter
+            text: stackView.depth > 1 ? "<font color='white'>\u25C0</font>" : "<font color='white'>\u2630</font>"
+            font.pixelSize: Qt.application.font.pixelSize * 1.6
+            onClicked: {
+                if (stackView.depth > 1) {
+                    stackView.pop()
+                } else {
+                    drawer.open()
+                }
             }
         }
 
+        Label {
+            text: stackView.currentItem.title
+            color: "white"
+            anchors.centerIn: parent
+            font.pixelSize: Qt.application.font.pixelSize * 1.6
+        }
+    }
+    // Страница, отображающая все заметки.
+    MainPage {
+        id: mainPage
+    }
+    // Боковая информационная панель
+    DrawerInfo {
+        id: drawer
+    }
+
+    // Для отображения страничек используем StackView
+    StackView {
+        id: stackView
+        initialItem: "MainPage.qml"
+        anchors.fill: parent
     }
 }
