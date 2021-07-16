@@ -25,7 +25,7 @@ Drawer { // Боковая информационная страничка.
         Text { // Информация о приложении.
             id: information_text
             anchors.fill: parent
-            text: "Экзаменационное задание по дисциплине \"Разработка безопасных мобильных приложений\",\nМосковский политех,\n30 июня 2021 г."
+            text: "Экзаменационное задание по дисциплине \"Разработка безопасных мобильных приложений\",\nМосковский политех,\n16 июля 2021 г."
             wrapMode: Text.WordWrap
             font.pixelSize: Qt.application.font.pixelSize*1.33
             horizontalAlignment: Text.AlignHCenter

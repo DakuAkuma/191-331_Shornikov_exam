@@ -11,7 +11,7 @@ Page {
         id: notesView
         anchors.top: parent.top
         anchors.left: parent.left
-        anchors.leftMargin: 25; anchors.topMargin: 25
+        anchors.leftMargin: 35; anchors.topMargin: 25
         width: parent.width*0.95
         height: parent.height*0.85
 
