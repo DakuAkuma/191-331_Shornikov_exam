@@ -7,6 +7,50 @@ Page {
 
     title: redactedNote > -1 ? "Редактирование" : "Создание"
 
+    // ComboBox для выбора цвета, 2.1.
+    ComboBox {
+        id: colorSelection
+        anchors.left: parent.left
+        anchors.leftMargin: 25
+        anchors.top: parent.top
+        anchors.topMargin: 15
+        textRole: "text"
+        valueRole: "color"
+        width: 150
+        height: 45
+        currentIndex: 0
+        model: ListModel {
+            id: cbItems
+            ListElement { text: "Не выбрано"; color: "#c0f2ed" }
+            ListElement { text: "Светло-синий"; color: "lightblue" }
+            ListElement { text: "Светло-зелёный"; color: "lightgreen" }
+            ListElement { text: "Светло-жёлтый"; color: "lightyellow" }
+        }
+
+        onCurrentIndexChanged: console.log("color changed to ", colorSelection.currentIndex)
+    }
+    // ComboBox для выбора тэга, 2.1.
+    ComboBox {
+        id: tagSelection
+        anchors.left: colorSelection.right
+        anchors.leftMargin: 25
+        anchors.top: parent.top
+        anchors.topMargin: 15
+        width: 175
+        height: 45
+        currentIndex: 0
+        model: ListModel {
+            id: tags
+            ListElement { text: "Не выбрано" }
+            ListElement { text: "Работа" }
+            ListElement { text: "Диплом" }
+            ListElement { text: "Напоминания" }
+            ListElement { text: "День рождения" }
+        }
+
+        onCurrentIndexChanged: console.log("tag changed to ", tagSelection.currentIndex)
+    }
+
     //Кнопка "Сохранить"
     Button {
         id: saveBtn
@@ -30,10 +74,14 @@ Page {
             if(redactedNote > -1) {
                 notesList.setProperty(redactedNote, "title", newTitle.text)
                 notesList.setProperty(redactedNote, "note", newNote.text)
+                notesList.setProperty(redactedNote, "color", colorSelection.currentValue)
+                notesList.setProperty(redactedNote, "tag", tagSelection.currentValue)
             } else {
                 notesList.append({
                                      "title": newTitle.text,
-                                     "note": newNote.text
+                                     "note": newNote.text,
+                                     "color": colorSelection.currentValue,
+                                     "tag": tagSelection.currentValue
                                  })
             }
             stackView.pop(null)
@@ -45,9 +93,11 @@ Page {
         id: newTitle
         anchors.top: saveBtn.bottom
         anchors.topMargin: 15
-        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.left: parent.left
+        anchors.leftMargin: 15
+        anchors.right: parent.right
+        anchors.rightMargin: 15
         maximumLength: 255
-        width: 300
         height: 45
         background: Rectangle {
             radius: 10
@@ -65,16 +115,19 @@ Page {
     ScrollView {
         // Задний фон.
         background: Rectangle {
-            color: "#c0f2ed"
+            color: colorSelection.currentValue
             anchors.fill: parent
         }
         // Настройки элемента прокрутки.
         id: textScroll
         anchors.top: newTitle.bottom
         anchors.topMargin: 15
-        anchors.horizontalCenter: parent.horizontalCenter
-        width: 250
-        height: 150
+        anchors.left: parent.left
+        anchors.leftMargin: 15
+        anchors.right: parent.right
+        anchors.rightMargin: 15
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 35
         clip: true
         ScrollBar.horizontal.interactive: false
         ScrollBar.vertical.interactive: true

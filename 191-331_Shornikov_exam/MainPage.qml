@@ -29,7 +29,7 @@ Page {
                 Rectangle {
                     id: noteElement
                     anchors.fill: parent
-                    color: "#c0f2ed"
+                    color: notesList.get(index).color
                     Label {
                         id: noteLabel
                         text: "<font color='white'><strong>"+title+"</strong></font>"
@@ -57,6 +57,23 @@ Page {
                         color: "white"
                         text: note
                     }
+                    Text {
+                        id: tagText
+                        anchors.top: noteText.bottom
+                        anchors.topMargin: 25
+                        anchors.bottom: parent.bottom
+                        anchors.bottomMargin: 5
+                        anchors.right: parent.right
+                        anchors.left: parent.left
+                        anchors.leftMargin: 25
+                        width: parent.width
+                        wrapMode: Text.WordWrap
+                        height: 15
+                        font.bold: true
+                        font.pixelSize: 12
+                        color: "white"
+                        text: tag
+                    }
                 }
                 onClicked: {
                     redactedNote = index
@@ -83,11 +100,11 @@ Page {
             redactedNote = -1
             stackView.push("EditPage.qml")
             // Было до добавления страницы редактирования.
-//            notesList.append({
-//                                 "title": "Заголовок",
-//                                 "note": "Какой-то текст..."
-//                             })
-//            console.log(notesList.get(notesList.count).note)
+            //            notesList.append({
+            //                                 "title": "Заголовок",
+            //                                 "note": "Какой-то текст..."
+            //                             })
+            //            console.log(notesList.get(notesList.count).note)
         }
     }
 }
